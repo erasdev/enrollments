@@ -2,9 +2,9 @@
 
 namespace Erasdev\Enrollments\Tests;
 
+use Erasdev\Enrollments\EnrollmentsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Erasdev\Enrollments\EnrollmentsServiceProvider;
 
 class TestCase extends Orchestra
 {
