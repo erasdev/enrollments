@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Database\Factories;
+namespace Erasdev\Enrollments\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

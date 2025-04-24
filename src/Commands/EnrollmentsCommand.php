@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Erasdev\Enrollments\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class EnrollmentsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'enrollments';
 
     public $description = 'My command';
 
