@@ -19,7 +19,6 @@ class EnrollmentsServiceProvider extends PackageServiceProvider
             ->name('enrollments')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_enrollments_table')
-            ->hasCommand(EnrollmentsCommand::class);
+            ->discoversMigrations();
     }
 }

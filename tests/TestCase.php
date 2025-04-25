@@ -1,10 +1,10 @@
 <?php
 
-namespace Erasdev\Enrollments\Tests;
+namespace ErasDev\Enrollments\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Erasdev\Enrollments\EnrollmentsServiceProvider;
+use ErasDev\Enrollments\EnrollmentsServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Erasdev\\Enrollments\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'ErasDev\\Enrollments\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

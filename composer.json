@@ -27,13 +27,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Erasdev\\Enrollments\\": "src/",
-            "Erasdev\\Enrollments\\Database\\Factories\\": "database/factories/"
+            "ErasDev\\Enrollments\\": "src/",
+            "ErasDev\\Enrollments\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Erasdev\\Enrollments\\Tests\\": "tests/",
+            "ErasDev\\Enrollments\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -55,10 +55,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Erasdev\\Enrollments\\EnrollmentsServiceProvider"
+                "ErasDev\\Enrollments\\EnrollmentsServiceProvider"
             ],
             "aliases": {
-                "Enrollments": "Erasdev\\Enrollments\\Facades\\Enrollments"
+                "Enrollments": "ErasDev\\Enrollments\\Facades\\Enrollments"
             }
         }
     },
