@@ -1,0 +1,175 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:enrollmentRules\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Accessors/AgeRequirementAccessor.php
+
+		-
+			message: '#^Cannot access property \$enabled on ErasDev\\Enrollments\\Models\\EnrollmentRule\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/Accessors/AgeRequirementAccessor.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: src/Accessors/AgeRequirementAccessor.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Builders/AgeRequirementBuilder.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Builders\\AgeRequirementBuilder\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Builders/AgeRequirementBuilder.php
+
+		-
+			message: '#^Offset ''minimum_age'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: src/Builders/AgeRequirementBuilder.php
+
+		-
+			message: '#^Property ErasDev\\Enrollments\\Builders\\AgeRequirementBuilder\:\:\$config type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Builders/AgeRequirementBuilder.php
+
+		-
+			message: '#^Class ErasDev\\Enrollments\\Models\\Enrollment uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Models/Enrollment.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Models\\Enrollment\:\:enrollable\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Models/Enrollment.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Models\\Enrollment\:\:enrollee\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Models/Enrollment.php
+
+		-
+			message: '#^Unable to resolve the template type TRelatedModel in call to method Illuminate\\Database\\Eloquent\\Model\:\:belongsTo\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Models/Enrollment.php
+
+		-
+			message: '#^Access to an undefined property ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:\$config\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Access to an undefined property ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:\$enabled\.$#'
+			identifier: property.notFound
+			count: 3
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Access to an undefined property ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Class ErasDev\\Enrollments\\Models\\EnrollmentRule uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Class ErasDev\\Enrollments\\Rules\\CapacityRule not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:config\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:enrollable\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^PHPDoc type array of property ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:\$casts is not covariant with PHPDoc type array\<string, string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$casts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^PHPDoc type array of property ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Property ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:\$casts type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Property ErasDev\\Enrollments\\Models\\EnrollmentRule\:\:\$fillable type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/EnrollmentRule.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$date_of_birth\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Rules/AgeRequirementRule.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Rules\\AgeRequirementRule\:\:getEligibilityDateAttribute\(\) should return Carbon\\Carbon but returns Carbon\\Carbon\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Rules/AgeRequirementRule.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Rules\\AgeRequirementRule\:\:getMaximumAgeAttribute\(\) should return int but returns int\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Rules/AgeRequirementRule.php
+
+		-
+			message: '#^Method ErasDev\\Enrollments\\Rules\\AgeRequirementRule\:\:getMinimumAgeAttribute\(\) should return int but returns int\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Rules/AgeRequirementRule.php
+
+		-
+			message: '#^Trait ErasDev\\Enrollments\\Traits\\HasAge is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasAge.php
+
+		-
+			message: '#^Trait ErasDev\\Enrollments\\Traits\\HasAgeRequirement is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasAgeRequirement.php
+
+		-
+			message: '#^Trait ErasDev\\Enrollments\\Traits\\HasEnrollments is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasEnrollments.php

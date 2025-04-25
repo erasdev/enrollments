@@ -72,7 +72,7 @@ class AgeRequirementAccessor
      */
     public function minimumAge()
     {
-        return $this->rule?->config['minimum_age'] ?? null;
+        return $this->rule?->config()['minimum_age'] ?? null;
     }
 
     /**
@@ -82,7 +82,7 @@ class AgeRequirementAccessor
      */
     public function maximumAge()
     {
-        return $this->rule?->config['maximum_age'] ?? null;
+        return $this->rule?->config()['maximum_age'] ?? null;
     }
 
     /**
@@ -92,7 +92,7 @@ class AgeRequirementAccessor
      */
     public function eligibilityDate()
     {
-        return $this->rule?->config['eligibility_date'] ? new \DateTime($this->rule->config['eligibility_date']) : null;
+        return $this->rule?->config()['eligibility_date'] ? new \DateTime($this->rule->config()['eligibility_date']) : null;
     }
 
     /**
@@ -102,7 +102,7 @@ class AgeRequirementAccessor
      */
     public function ageUnit()
     {
-        return $this->rule?->config['age_unit'] ?? null;
+        return $this->rule?->config()['age_unit'] ?? null;
     }
 
     /**
