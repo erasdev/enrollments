@@ -138,7 +138,52 @@ The package supports various types of enrollment rules:
 
 - Age Requirements
 
-#### Age Requirements
+### Custom Rule Implementations
+
+You can create custom enrollment rules by implementing the `EnrollmentRuleInterface`:
+
+```php
+use ErasDev\Enrollments\Rules\Contracts\EnrollmentRuleInterface;
+use ErasDev\Enrollments\Models\EnrollmentRule;
+use Illuminate\Database\Eloquent\Model;
+
+class CustomAgeRequirementRule implements EnrollmentRuleInterface
+{
+    protected $rule;
+
+    public function __construct(EnrollmentRule $rule)
+    {
+        $this->rule = $rule;
+    }
+
+    public function passes(Model $enrollable, Model $enrollee): bool
+    {
+        // Your custom validation logic here
+        return false;
+    }
+
+    public function message(): string
+    {
+        return 'Custom rule class message.';
+    }
+}
+```
+
+Then register your custom rule in the config file:
+
+```php
+'rules' => [
+    'types' => [
+        'age_requirement' => \App\Rules\CustomAgeRequirementRule::class,
+    ],
+],
+```
+
+## Age Requirements
+
+Age requirements allow you to restrict enrollment based on the age of the enrollee. This is useful for courses or programs that have age restrictions, such as children's programs or adult-only courses.
+
+### Basic Usage
 
 To implement age requirement rules, you need to:
 1. Use the `HasAgeRequirement` trait on your enrollable model (e.g., Course)
@@ -146,7 +191,7 @@ To implement age requirement rules, you need to:
 
 ```php
 // In your Course model (enrollable)
-use ErasDev\Enrollments\Traits\HasEnrollments;
+use ErasDev\Enrollments\Traits\HasEnrollments;g
 use ErasDev\Enrollments\Traits\HasAgeRequirement;
 
 class Course extends Model
@@ -226,52 +271,6 @@ $course->editAgeRequirement([
 $course->deleteAgeRequirement();
 ```
 
-### Custom Rule Implementations
-
-You can create custom enrollment rules by implementing the `EnrollmentRuleInterface`:
-
-```php
-use ErasDev\Enrollments\Rules\Contracts\EnrollmentRuleInterface;
-use ErasDev\Enrollments\Models\EnrollmentRule;
-use Illuminate\Database\Eloquent\Model;
-
-class CustomAgeRequirementRule implements EnrollmentRuleInterface
-{
-    protected $rule;
-
-    public function __construct(EnrollmentRule $rule)
-    {
-        $this->rule = $rule;
-    }
-
-    public function passes(Model $enrollable, Model $enrollee): bool
-    {
-        // Your custom validation logic here
-        return false;
-    }
-
-    public function message(): string
-    {
-        return 'Custom rule class message.';
-    }
-}
-```
-
-Then register your custom rule in the config file:
-
-```php
-'rules' => [
-    'types' => [
-        'age_requirement' => \App\Rules\CustomAgeRequirementRule::class,
-    ],
-],
-```
-
-## Age Requirements
-
-Age requirements allow you to restrict enrollment based on the age of the enrollee. This is useful for courses or programs that have age restrictions, such as children's programs or adult-only courses.
-
-### Basic Usage
 
 #### Using Helper Methods
 
