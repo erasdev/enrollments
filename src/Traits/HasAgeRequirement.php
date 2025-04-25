@@ -4,7 +4,6 @@ namespace ErasDev\Enrollments\Traits;
 
 use ErasDev\Enrollments\Accessors\AgeRequirementAccessor;
 use ErasDev\Enrollments\Builders\AgeRequirementBuilder;
-use ErasDev\Enrollments\Models\EnrollmentRule;
 
 trait HasAgeRequirement
 {
