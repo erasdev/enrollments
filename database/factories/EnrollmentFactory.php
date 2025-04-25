@@ -19,4 +19,4 @@ class EnrollmentFactory extends Factory
             'notes' => $this->faker->optional()->sentence(),
         ];
     }
-} 
+}

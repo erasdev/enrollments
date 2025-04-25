@@ -26,7 +26,7 @@ return [
     */
     'enrollments_table' => env('ENROLLMENTS_TABLE', 'enrollments'),
 
-    /*  
+    /*
     |--------------------------------------------------------------------------
     | Enrollee Table
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     | Globally enable or disable rules here.
     |
     */
-    'enable_age_requirements' => true, //expects Enrollable model to have a minimum_age, maximum_age, and eligibility_date column
+    'enable_age_requirements' => true, // expects Enrollable model to have a minimum_age, maximum_age, and eligibility_date column
 
     /*
     |--------------------------------------------------------------------------
@@ -84,4 +84,4 @@ return [
             EnrollmentRuleType::AGE_REQUIREMENT->value => 'default',
         ],
     ],
-]; 
+];

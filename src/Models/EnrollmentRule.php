@@ -2,16 +2,11 @@
 
 namespace ErasDev\Enrollments\Models;
 
+use ErasDev\Enrollments\Builders\AgeRequirementBuilder;
+use ErasDev\Enrollments\Enums\EnrollmentRuleType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
-use ErasDev\Enrollments\Rules\AgeRequirementRule;
-use ErasDev\Enrollments\Rules\CapacityRule;
-use ErasDev\Enrollments\Rules\PrerequisiteRule;
-use ErasDev\Enrollments\Enums\EnrollmentRuleType;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use ErasDev\Enrollments\Rules\CorequisiteRule;
-use ErasDev\Enrollments\Builders\AgeRequirementBuilder;
 
 class EnrollmentRule extends Model
 {
@@ -42,8 +37,6 @@ class EnrollmentRule extends Model
 
     /**
      * Get the enrollable model.
-     *
-     * @return MorphTo
      */
     public function enrollable(): MorphTo
     {
@@ -52,8 +45,6 @@ class EnrollmentRule extends Model
 
     /**
      * Get the type of the rule.
-     *
-     * @return string
      */
     public function type(): string
     {
@@ -62,8 +53,6 @@ class EnrollmentRule extends Model
 
     /**
      * Get the configuration for the rule.
-     *
-     * @return array
      */
     public function config(): array
     {
@@ -72,8 +61,6 @@ class EnrollmentRule extends Model
 
     /**
      * Check if the rule is enabled.
-     *
-     * @return bool
      */
     public function isEnabled(): bool
     {
@@ -82,8 +69,6 @@ class EnrollmentRule extends Model
 
     /**
      * Enable the rule.
-     *
-     * @return void
      */
     public function enable(): void
     {
@@ -93,8 +78,6 @@ class EnrollmentRule extends Model
 
     /**
      * Disable the rule.
-     *
-     * @return void
      */
     public function disable(): void
     {
@@ -104,15 +87,13 @@ class EnrollmentRule extends Model
 
     /**
      * Get the class name of the rule.
-     *
-     * @return string
      */
     public function getRuleClass(): string
     {
         $type = $this->type();
         $config = config('enrollments.rules.types');
 
-        if (!isset($config[$type])) {
+        if (! isset($config[$type])) {
             throw new \Exception("No rule class found for type: {$type}");
         }
 
@@ -125,7 +106,7 @@ class EnrollmentRule extends Model
             };
         }
 
-        if (!class_exists($class)) {
+        if (! class_exists($class)) {
             throw new \Exception("Rule class not found: {$class}");
         }
 
@@ -141,6 +122,7 @@ class EnrollmentRule extends Model
     {
         $class = $this->getRuleClass();
         $rule = new $class($this);
+
         return $rule;
     }
 
@@ -152,15 +134,12 @@ class EnrollmentRule extends Model
     public function resolveHandler()
     {
         $handler = $this->getRule();
+
         return $handler;
     }
 
     /**
      * Check if the rule passes for the given enrollable and user.
-     *
-     * @param Model $enrollable
-     * @param Model $user
-     * @return bool
      */
     public function passes(Model $enrollable, Model $user): bool
     {
@@ -170,7 +149,6 @@ class EnrollmentRule extends Model
     /**
      * Create a new age requirement rule for the given enrollable.
      *
-     * @param Model $enrollable
      * @return AgeRequirementBuilder
      */
     public static function ageRequirement(Model $enrollable)
@@ -180,7 +158,7 @@ class EnrollmentRule extends Model
             ->first();
 
         if ($existingRule) {
-            throw new \Exception("An age requirement already exists for this model.");
+            throw new \Exception('An age requirement already exists for this model.');
         }
 
         return new AgeRequirementBuilder($enrollable);

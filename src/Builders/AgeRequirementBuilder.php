@@ -2,7 +2,6 @@
 
 namespace ErasDev\Enrollments\Builders;
 
-use Carbon\Carbon;
 use ErasDev\Enrollments\Enums\EnrollmentRuleType;
 use ErasDev\Enrollments\Models\EnrollmentRule;
 
@@ -32,8 +31,7 @@ class AgeRequirementBuilder
     /**
      * Create a new age requirement builder instance.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param array $config
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
     public function __construct($model, array $config = [])
@@ -42,70 +40,67 @@ class AgeRequirementBuilder
         $this->config = $config;
     }
 
-
-    
-
     /**
      * Set the minimum age in years.
      *
-     * @param int $years
      * @return $this
      */
     public function minYears(int $years)
     {
         $this->config['minimum_age'] = $years;
         $this->config['minimum_age_unit'] = 'years';
+
         return $this;
     }
 
     /**
      * Set the maximum age in years.
      *
-     * @param int $years
      * @return $this
      */
     public function maxYears(int $years)
     {
         $this->config['maximum_age'] = $years;
         $this->config['maximum_age_unit'] = 'years';
+
         return $this;
     }
 
-    /** 
+    /**
      * Set the minimum age in months.
      *
-     * @param int $months
      * @return $this
      */
     public function minMonths(int $months)
     {
         $this->config['minimum_age'] = $months;
         $this->config['minimum_age_unit'] = 'months';
+
         return $this;
     }
 
     /**
      * Set the maximum age in months.
      *
-     * @param int $months
      * @return $this
-     */ 
+     */
     public function maxMonths(int $months)
     {
         $this->config['maximum_age'] = $months;
         $this->config['maximum_age_unit'] = 'months';
+
         return $this;
     }
 
     /**
      * Set the eligibility date.
      *
-     * @param \DateTime|null $date
      * @return $this
      */
-    public function eligibilityDate(\DateTime $date = null)
+    public function eligibilityDate(?\DateTime $date = null)
     {
         $this->config['eligibility_date'] = $date ? $date->format('Y-m-d H:i:s') : now()->format('Y-m-d H:i:s');
+
         return $this;
     }
 
@@ -116,14 +111,14 @@ class AgeRequirementBuilder
      */
     public function years()
     {
-        if (isset($this->config['minimum_age']) && !isset($this->config['minimum_age_unit'])) {
+        if (isset($this->config['minimum_age']) && ! isset($this->config['minimum_age_unit'])) {
             $this->config['minimum_age_unit'] = 'years';
         }
-        
-        if (isset($this->config['maximum_age']) && !isset($this->config['maximum_age_unit'])) {
+
+        if (isset($this->config['maximum_age']) && ! isset($this->config['maximum_age_unit'])) {
             $this->config['maximum_age_unit'] = 'years';
         }
-        
+
         return $this;
     }
 
@@ -134,14 +129,14 @@ class AgeRequirementBuilder
      */
     public function months()
     {
-        if (isset($this->config['minimum_age']) && !isset($this->config['minimum_age_unit'])) {
+        if (isset($this->config['minimum_age']) && ! isset($this->config['minimum_age_unit'])) {
             $this->config['minimum_age_unit'] = 'months';
         }
-        
-        if (isset($this->config['maximum_age']) && !isset($this->config['maximum_age_unit'])) {
+
+        if (isset($this->config['maximum_age']) && ! isset($this->config['maximum_age_unit'])) {
             $this->config['maximum_age_unit'] = 'months';
         }
-        
+
         return $this;
     }
 
@@ -157,22 +152,22 @@ class AgeRequirementBuilder
         }
 
         // Set default eligibility date if not set
-        if (!isset($this->config['eligibility_date'])) {
+        if (! isset($this->config['eligibility_date'])) {
             $this->config['eligibility_date'] = now()->format('Y-m-d H:i:s');
         }
 
         // Set default minimum age if not set
-        if (!isset($this->config['minimum_age'])) {
+        if (! isset($this->config['minimum_age'])) {
             $this->config['minimum_age'] = 0;
             $this->config['minimum_age_unit'] = 'years';
         }
-        
+
         // Set default age units if not set
-        if (isset($this->config['minimum_age']) && !isset($this->config['minimum_age_unit'])) {
+        if (isset($this->config['minimum_age']) && ! isset($this->config['minimum_age_unit'])) {
             $this->config['minimum_age_unit'] = 'years';
         }
-        
-        if (isset($this->config['maximum_age']) && !isset($this->config['maximum_age_unit'])) {
+
+        if (isset($this->config['maximum_age']) && ! isset($this->config['maximum_age_unit'])) {
             $this->config['maximum_age_unit'] = 'years';
         }
 

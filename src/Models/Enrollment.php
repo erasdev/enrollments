@@ -2,11 +2,9 @@
 
 namespace ErasDev\Enrollments\Models;
 
-use ErasDev\Enrollments\Database\Factories\EnrollmentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Enrollment extends Model
 {
@@ -33,5 +31,4 @@ class Enrollment extends Model
     {
         return $this->morphTo();
     }
-
-} 
+}

@@ -3,7 +3,6 @@
 namespace ErasDev\Enrollments\Accessors;
 
 use ErasDev\Enrollments\Enums\EnrollmentRuleType;
-use ErasDev\Enrollments\Models\EnrollmentRule;
 
 class AgeRequirementAccessor
 {
@@ -24,7 +23,7 @@ class AgeRequirementAccessor
     /**
      * Create a new age requirement accessor instance.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
     public function __construct($model)
@@ -65,7 +64,6 @@ class AgeRequirementAccessor
     {
         return $this->rule?->id ?? null;
     }
-
 
     /**
      * Get the minimum age requirement.
@@ -114,7 +112,7 @@ class AgeRequirementAccessor
      */
     public function isEnabled()
     {
-        if (!$this->exists()) {
+        if (! $this->exists()) {
             throw new \Exception('Age requirement rule does not exist for this model.');
         }
 
@@ -140,4 +138,4 @@ class AgeRequirementAccessor
     {
         return $this->rule;
     }
-} 
+}

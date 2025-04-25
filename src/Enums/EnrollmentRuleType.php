@@ -2,10 +2,8 @@
 
 namespace ErasDev\Enrollments\Enums;
 
-
 enum EnrollmentRuleType: string
 {
-
     case AGE_REQUIREMENT = 'age_requirement';
     case PREREQUISITE = 'prerequisite';
     case CAPACITY = 'capacity';
@@ -15,12 +13,10 @@ enum EnrollmentRuleType: string
 
     /**
      * Get the display name for the rule type.
-     *
-     * @return string
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::AGE_REQUIREMENT => 'Age Requirement',
             self::PREREQUISITE => 'Prerequisite',
             self::CAPACITY => 'Capacity',
@@ -32,12 +28,10 @@ enum EnrollmentRuleType: string
 
     /**
      * Get the description for the rule type.
-     *
-     * @return string
      */
     public function description(): string
     {
-        return match($this) {
+        return match ($this) {
             self::AGE_REQUIREMENT => 'Enforces age restrictions for enrollment',
             self::PREREQUISITE => 'Requires completion of other courses or conditions',
             self::CAPACITY => 'Manages maximum enrollment capacity',
@@ -49,11 +43,9 @@ enum EnrollmentRuleType: string
 
     /**
      * Convert the enum to a string.
-     *
-     * @return string
      */
     public function toString(): string
     {
         return $this->value;
     }
-} 
+}

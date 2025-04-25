@@ -2,7 +2,6 @@
 
 namespace Erasdev\Enrollments;
 
-use Erasdev\Enrollments\Commands\EnrollmentsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
