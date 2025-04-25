@@ -3,11 +3,10 @@
 namespace ErasDev\Enrollments\Rules;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Database\Eloquent\Model;
+use ErasDev\Enrollments\Models\EnrollmentRule;
 use ErasDev\Enrollments\Rules\Contracts\AgeRequirementRuleInterface;
 use ErasDev\Enrollments\Rules\Contracts\EnrollmentRuleInterface;
-use ErasDev\Enrollments\Models\EnrollmentRule;
+use Illuminate\Database\Eloquent\Model;
 
 class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleInterface
 {
@@ -42,7 +41,6 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
     /**
      * Create a new age requirement rule instance.
      *
-     * @param EnrollmentRule $rule
      * @return void
      */
     public function __construct(EnrollmentRule $rule)
@@ -53,17 +51,16 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
     /**
      * Check if the user passes the age requirement.
      *
-     * @param Model $enrollable The enrollable being enrolled in
-     * @param Model $enrollee The enrollee attempting to enroll
-     * @return bool
+     * @param  Model  $enrollable  The enrollable being enrolled in
+     * @param  Model  $enrollee  The enrollee attempting to enroll
      */
     public function passes(Model $enrollable, Model $enrollee): bool
     {
-        if (!config('enrollments.enable_age_requirements')) {
+        if (! config('enrollments.enable_age_requirements')) {
             return true;
         }
 
-        if (!$this->rule->isEnabled()) {
+        if (! $this->rule->isEnabled()) {
             return true;
         }
 
@@ -71,7 +68,7 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
         $minimumAge = $config['minimum_age'];
         $maximumAge = $config['maximum_age'];
         $eligibilityDate = new \DateTime($config['eligibility_date']);
-        
+
         // Get the age units with fallbacks
         $minimumAgeUnit = $config['minimum_age_unit'] ?? 'years';
         $maximumAgeUnit = $config['maximum_age_unit'] ?? 'years';
@@ -89,8 +86,6 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
 
     /**
      * Get the error message for when the rule fails.
-     *
-     * @return string
      */
     public function message(): string
     {
@@ -99,11 +94,6 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
 
     /**
      * Calculate the age of the user.
-     *
-     * @param \DateTime $dateOfBirth
-     * @param \DateTime $eligibilityDate
-     * @param string $unit
-     * @return int
      */
     public function calculateAge(\DateTime $dateOfBirth, \DateTime $eligibilityDate, string $unit): int
     {
@@ -117,8 +107,6 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
 
     /**
      * Get the minimum age requirement.
-     *
-     * @return int
      */
     public function getMinimumAgeAttribute(): int
     {
@@ -127,8 +115,6 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
 
     /**
      * Get the maximum age requirement.
-     *
-     * @return int
      */
     public function getMaximumAgeAttribute(): int
     {
@@ -137,8 +123,6 @@ class AgeRequirementRule implements AgeRequirementRuleInterface, EnrollmentRuleI
 
     /**
      * Get the eligibility date.
-     *
-     * @return \Carbon\Carbon
      */
     public function getEligibilityDateAttribute(): Carbon
     {

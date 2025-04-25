@@ -2,8 +2,8 @@
 
 namespace ErasDev\Enrollments\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use ErasDev\Enrollments\Models\EnrollmentRule;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EnrollmentRuleFactory extends Factory
 {
@@ -16,8 +16,6 @@ class EnrollmentRuleFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
     public function definition(): array
     {
@@ -27,7 +25,7 @@ class EnrollmentRuleFactory extends Factory
             'enabled' => true,
             // For polymorphic relationships, these can be set later via factory states or manually:
             'enrollable_type' => null,
-            'enrollable_id'   => null,
+            'enrollable_id' => null,
         ];
     }
 }

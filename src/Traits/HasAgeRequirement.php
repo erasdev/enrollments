@@ -4,14 +4,11 @@ namespace ErasDev\Enrollments\Traits;
 
 use ErasDev\Enrollments\Accessors\AgeRequirementAccessor;
 use ErasDev\Enrollments\Builders\AgeRequirementBuilder;
-use ErasDev\Enrollments\Enums\EnrollmentRuleType;
 
 trait HasAgeRequirement
 {
     /**
      * Get the age requirement rule for this model.
-     *
-     * @return AgeRequirementAccessor
      */
     public function getAgeRequirement(): AgeRequirementAccessor
     {
@@ -20,8 +17,6 @@ trait HasAgeRequirement
 
     /**
      * Check if this model has an age requirement rule.
-     *
-     * @return bool
      */
     public function hasAgeRequirement(): bool
     {
@@ -31,13 +26,12 @@ trait HasAgeRequirement
     /**
      * Add an age requirement to this model.
      *
-     * @param array $config Configuration array with keys:
-     *                      - minimum_age: int (required)
-     *                      - maximum_age: int (required)
-     *                      - eligibility_date: \DateTime (required)
-     *                      - minimum_age_unit: string (optional, default: 'years')
-     *                      - maximum_age_unit: string (optional, default: 'years')
-     * @return AgeRequirementBuilder
+     * @param  array  $config  Configuration array with keys:
+     *                         - minimum_age: int (required)
+     *                         - maximum_age: int (required)
+     *                         - eligibility_date: \DateTime (required)
+     *                         - minimum_age_unit: string (optional, default: 'years')
+     *                         - maximum_age_unit: string (optional, default: 'years')
      */
     public function addAgeRequirement(array $config): AgeRequirementBuilder
     {
@@ -46,16 +40,16 @@ trait HasAgeRequirement
         }
 
         // Validate required parameters
-        if (!isset($config['minimum_age']) || !isset($config['maximum_age']) || !isset($config['eligibility_date'])) {
+        if (! isset($config['minimum_age']) || ! isset($config['maximum_age']) || ! isset($config['eligibility_date'])) {
             throw new \Exception('Missing required parameters: minimum_age, maximum_age, and eligibility_date are required.');
         }
 
         // Set default age units if not provided
-        if (!isset($config['minimum_age_unit'])) {
+        if (! isset($config['minimum_age_unit'])) {
             $config['minimum_age_unit'] = 'years';
         }
-        
-        if (!isset($config['maximum_age_unit'])) {
+
+        if (! isset($config['maximum_age_unit'])) {
             $config['maximum_age_unit'] = 'years';
         }
 
@@ -64,14 +58,12 @@ trait HasAgeRequirement
 
     /**
      * Disable (without deleting) the age requirement rule for this model.
-     *
-     * @return void
      */
     public function disableAgeRequirement(): void
     {
 
         $rule = $this->getAgeRequirement()->getRule();
-        if (!$rule) {
+        if (! $rule) {
             throw new \Exception('Age requirement rule does not exist for this model.');
         }
 
@@ -81,14 +73,12 @@ trait HasAgeRequirement
 
     /**
      * Enable the age requirement for this model.
-     *
-     * @return void
      */
     public function enableAgeRequirement(): void
     {
 
         $rule = $this->getAgeRequirement()->getRule();
-        if (!$rule) {
+        if (! $rule) {
             throw new \Exception('Age requirement rule does not exist for this model.');
         }
 
@@ -107,7 +97,7 @@ trait HasAgeRequirement
         $rule = $this->getAgeRequirement()->getRule();
 
         // If the rule exists, delete it.
-        if($rule){
+        if ($rule) {
             $rule->delete();
         }
 
@@ -117,13 +107,12 @@ trait HasAgeRequirement
     /**
      * Edit the age requirement for this model.
      *
-     * @param array $config
      * @return \ErasDev\Enrollments\Models\EnrollmentRule
      */
     public function editAgeRequirement(array $config)
     {
         $rule = $this->getAgeRequirement()->getRule();
-        if (!$rule) {
+        if (! $rule) {
             throw new \Exception('Age requirement rule does not exist for this model.');
         }
 
@@ -132,27 +121,27 @@ trait HasAgeRequirement
         // Handle minimum age and its unit
         if (isset($config['minimum_age'])) {
             $currentConfig['minimum_age'] = $config['minimum_age'];
-            
+
             // Set the minimum age unit if provided, otherwise keep the existing one or default to 'years'
             if (isset($config['minimum_age_unit'])) {
                 $currentConfig['minimum_age_unit'] = $config['minimum_age_unit'];
-            } elseif (!isset($currentConfig['minimum_age_unit'])) {
+            } elseif (! isset($currentConfig['minimum_age_unit'])) {
                 $currentConfig['minimum_age_unit'] = 'years';
             }
         }
-        
+
         // Handle maximum age and its unit
         if (isset($config['maximum_age'])) {
             $currentConfig['maximum_age'] = $config['maximum_age'];
-            
+
             // Set the maximum age unit if provided, otherwise keep the existing one or default to 'years'
             if (isset($config['maximum_age_unit'])) {
                 $currentConfig['maximum_age_unit'] = $config['maximum_age_unit'];
-            } elseif (!isset($currentConfig['maximum_age_unit'])) {
+            } elseif (! isset($currentConfig['maximum_age_unit'])) {
                 $currentConfig['maximum_age_unit'] = 'years';
             }
         }
-        
+
         // Handle eligibility date
         if (isset($config['eligibility_date'])) {
             $currentConfig['eligibility_date'] = $config['eligibility_date'];

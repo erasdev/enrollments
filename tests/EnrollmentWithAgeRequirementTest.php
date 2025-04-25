@@ -1,22 +1,22 @@
 <?php
 
-use ErasDev\Enrollments\Traits\HasEnrollments;
-use ErasDev\Enrollments\Traits\HasAgeRequirement;
+use Carbon\Carbon;
 use ErasDev\Enrollments\Models\EnrollmentRule;
-use ErasDev\Enrollments\Traits\HasAge;
+use ErasDev\Enrollments\Rules\Contracts\AgeRequirementRuleInterface;
+use ErasDev\Enrollments\Traits\HasAgeRequirement;
+use ErasDev\Enrollments\Traits\HasEnrollments;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Schema;
-use ErasDev\Enrollments\Rules\Contracts\AgeRequirementRuleInterface;
-use Carbon\Carbon;
 
 // Create a test model that uses the HasEnrollments trait
 class EnrollableWithAgeRequirementTestModel extends Model
 {
-    use HasEnrollments;
     use HasAgeRequirement;
+    use HasEnrollments;
+
     protected $table = 'test_enrollables';
-    
+
     protected $fillable = ['name'];
 }
 
@@ -24,8 +24,9 @@ class EnrollableWithAgeRequirementTestModel extends Model
 class EnrollableWithAgeRequirementTestUser extends User
 {
     use HasAgeRequirement;
+
     protected $table = 'test_users';
-    
+
     protected $fillable = ['name', 'email', 'password', 'date_of_birth'];
 }
 
@@ -64,7 +65,8 @@ class CustomAgeRequirementRule implements AgeRequirementRuleInterface
     }
 }
 
-function EnrollableWithAgeRequirementTestSetup(){
+function EnrollableWithAgeRequirementTestSetup()
+{
     Schema::create('test_enrollables', function ($table) {
         $table->id();
         $table->string('name');
@@ -96,10 +98,11 @@ function EnrollableWithAgeRequirementTestSetup(){
         $table->morphs('enrollable');
         $table->timestamps();
     });
-    
-}   
 
-function EnrollableWithAgeRequirementTestTeardown(){
+}
+
+function EnrollableWithAgeRequirementTestTeardown()
+{
     Schema::dropIfExists('enrollments');
     Schema::dropIfExists('enrollment_rules');
     Schema::dropIfExists('test_enrollables');
@@ -108,32 +111,31 @@ function EnrollableWithAgeRequirementTestTeardown(){
 
 test('can check if a user is eligible', function () {
     EnrollableWithAgeRequirementTestSetup();
-   
 
-   // Ensure the config is loaded
-   config(['enrollments.enable_age_requirements' => true]);
+    // Ensure the config is loaded
+    config(['enrollments.enable_age_requirements' => true]);
 
-   // Create a test enrollable model
-   $enrollable = EnrollableWithAgeRequirementTestModel::create(['name' => 'Test Course']);
+    // Create a test enrollable model
+    $enrollable = EnrollableWithAgeRequirementTestModel::create(['name' => 'Test Course']);
 
-   // Create a test user
-   $user = EnrollableWithAgeRequirementTestUser::create([
-       'name' => 'Test User',
-       'email' => 'test@example.com',
-       'password' => bcrypt('password'),
-       'date_of_birth' => now()->subYears(10)
-   ]); 
+    // Create a test user
+    $user = EnrollableWithAgeRequirementTestUser::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => bcrypt('password'),
+        'date_of_birth' => now()->subYears(10),
+    ]);
 
-   EnrollmentRule::ageRequirement($enrollable)
-       ->minYears(9)
-       ->maxYears(25)
-       ->eligibilityDate(now())
-       ->save();
+    EnrollmentRule::ageRequirement($enrollable)
+        ->minYears(9)
+        ->maxYears(25)
+        ->eligibilityDate(now())
+        ->save();
 
-   // The user should now be ineligible because they are younger than the minimum age of 18
-   expect($enrollable->isEligible($user))->toBeTrue();
+    // The user should now be ineligible because they are younger than the minimum age of 18
+    expect($enrollable->isEligible($user))->toBeTrue();
 
-   EnrollableWithAgeRequirementTestTeardown();
+    EnrollableWithAgeRequirementTestTeardown();
 
 });
 
@@ -151,8 +153,8 @@ test('can check if a user is not eligible', function () {
         'name' => 'Test User',
         'email' => 'test@example.com',
         'password' => bcrypt('password'),
-        'date_of_birth' => now()->subYears(10)
-    ]); 
+        'date_of_birth' => now()->subYears(10),
+    ]);
 
     // Add age requirement using the trait method
     EnrollmentRule::ageRequirement($enrollable)
@@ -165,7 +167,7 @@ test('can check if a user is not eligible', function () {
     expect($enrollable->isEligible($user))->toBeFalse();
 
     // Try to enroll the user and expect an exception with the correct message
-    expect(function() use ($enrollable, $user) {
+    expect(function () use ($enrollable, $user) {
         $enrollable->enroll($user);
     })->toThrow(Exception::class, 'Applicant does not meet the age requirement.');
 
@@ -186,9 +188,9 @@ test('can handle mixed age units', function () {
         'name' => 'Test User',
         'email' => 'test@example.com',
         'password' => bcrypt('password'),
-        'date_of_birth' => now()->subMonths(8)
-    ]); 
-    
+        'date_of_birth' => now()->subMonths(8),
+    ]);
+
     // Add age requirement using the trait method
     EnrollmentRule::ageRequirement($enrollable)
         ->minMonths(10)
@@ -200,8 +202,7 @@ test('can handle mixed age units', function () {
     expect($enrollable->isEligible($user))->toBeFalse();
 
     EnrollableWithAgeRequirementTestTeardown();
-});                 
-
+});
 
 test('expect an exception when trying to set two age requirements on the same model', function () {
     EnrollableWithAgeRequirementTestSetup();
@@ -215,10 +216,10 @@ test('expect an exception when trying to set two age requirements on the same mo
     // Create a test user
     $user = EnrollableWithAgeRequirementTestUser::create([
         'name' => 'Test User',
-        'email' => 'test@example.com',  
+        'email' => 'test@example.com',
         'password' => bcrypt('password'),
-        'date_of_birth' => now()->subYears(10)
-    ]); 
+        'date_of_birth' => now()->subYears(10),
+    ]);
 
     // Add age requirement using the trait method
     EnrollmentRule::ageRequirement($enrollable)
@@ -236,7 +237,7 @@ test('expect an exception when trying to set two age requirements on the same mo
             ->save();
     })->toThrow(Exception::class);
 
-    EnrollableWithAgeRequirementTestTeardown(); 
+    EnrollableWithAgeRequirementTestTeardown();
 });
 
 test('can use custom age requirement rule', function () {
@@ -254,9 +255,9 @@ test('can use custom age requirement rule', function () {
         'name' => 'Test User',
         'email' => 'test@example.com',
         'password' => bcrypt('password'),
-        'date_of_birth' => now()->subYears(20)
-    ]); 
-    
+        'date_of_birth' => now()->subYears(20),
+    ]);
+
     // Add age requirement using the trait method
     EnrollmentRule::ageRequirement($enrollable)
         ->minYears(18)
@@ -268,9 +269,9 @@ test('can use custom age requirement rule', function () {
     expect($enrollable->isEligible($user))->toBeFalse();
 
     // Try to enroll the user and expect an exception with the custom message
-    expect(function() use ($enrollable, $user) {
+    expect(function () use ($enrollable, $user) {
         $enrollable->enroll($user);
     })->toThrow(Exception::class, 'Custom rule class message.');
 
     EnrollableWithAgeRequirementTestTeardown();
-});         
+});

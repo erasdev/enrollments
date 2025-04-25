@@ -2,13 +2,12 @@
 
 namespace ErasDev\Enrollments\Traits;
 
-use ErasDev\Enrollments\Models\EnrollmentRule;
 use ErasDev\Enrollments\Models\Enrollment;
+use ErasDev\Enrollments\Models\EnrollmentRule;
 use Illuminate\Support\Facades\Schema;
 
 trait HasEnrollments
 {
-
     /**
      * Get the polymorphic many-to-many relationship for enrollees.
      */
@@ -42,8 +41,9 @@ trait HasEnrollments
     /**
      * Enroll an enrollee into this entity.
      *
-     * @param mixed $enrollee
+     * @param  mixed  $enrollee
      * @return mixed
+     *
      * @throws \Exception
      */
     public function enroll($enrollee)
@@ -53,7 +53,7 @@ trait HasEnrollments
             // Evaluate all enrollment rules
             foreach ($this->enrollmentRules as $rule) {
                 $handler = $rule->resolveHandler();
-                if (!$handler->passes($this, $enrollee)) {
+                if (! $handler->passes($this, $enrollee)) {
                     throw new \Exception($handler->message());
                 }
             }
@@ -67,10 +67,10 @@ trait HasEnrollments
         return $enrollment;
     }
 
-    /** 
+    /**
      * Unenroll an enrollee from this entity.
      *
-     * @param mixed $enrollee
+     * @param  mixed  $enrollee
      * @return void
      */
     public function unenroll($enrollee)
@@ -81,36 +81,35 @@ trait HasEnrollments
     /**
      * Check if an enrollee is enrolled in this entity.
      *
-     * @param mixed $enrollee
+     * @param  mixed  $enrollee
      * @return bool
      */
     public function isEnrolled($enrollee)
     {
         return $this->enrollments()->where('enrollee_id', $enrollee->id)->exists();
-    }   
+    }
 
     /**
      * Check if an enrollee is eligible to enroll in this entity.
      *
-     * @param mixed $enrollee
+     * @param  mixed  $enrollee
      * @return bool
      */
     public function isEligible($enrollee)
     {
         // Check if the enrollment_rules table exists
-        if (!Schema::hasTable('enrollment_rules')) {
+        if (! Schema::hasTable('enrollment_rules')) {
             return true;
         }
-    
+
         foreach ($this->enrollmentRules()->get() as $rule) {
             $handler = $rule->resolveHandler();
             $passes = $handler->passes($this, $enrollee);
-            if (!$passes) {
-                return false;   
+            if (! $passes) {
+                return false;
             }
         }
+
         return true;
     }
-    
-    
 }
